@@ -1,4 +1,17 @@
 import render from "./render";
+
+const diffAttrs = (oldAttrs, newAttrs) => {
+  return $node => {
+    return $node;
+  };
+};
+
+const diffChildren = (oldVChildren, newVChildren) => {
+  return $node => {
+    return $node;
+  };
+};
+
 const diff = (oldVTree, newVTree) => {
   if (newVTree === undefined) {
     //newVtree is undefined
@@ -35,10 +48,14 @@ const diff = (oldVTree, newVTree) => {
     };
   }
 
-  // If the code reaches (A), it implies the following:
-  // 1. oldVTree and newVTree are both virtual elements.
-  // 2. They have the same tagName.
-  // 3. They might have different attrs and children.
+  const patchAttrs = diffAttrs(oldVTree.attrs, newVTree.attrs);
+  const patchChildren = diffChildren(oldVTree.children, newVTree.children);
+
+  return $node => {
+    patchAttrs($node);
+    patchChildren($node);
+    return $node;
+  };
 };
 
 export default diff;
