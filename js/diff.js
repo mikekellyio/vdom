@@ -30,6 +30,20 @@ const diffAttrs = (oldAttrs, newAttrs) => {
 };
 
 const diffChildren = (oldVChildren, newVChildren) => {
+  //3 cases:
+  // 1. old.length === new.length
+  // then we can do diff(old[i], new[i]) for i=0...old.length
+  // 2. old.length > new.length
+  // then we can also do diff(old[i], new[i]) for i=0...old.length
+  // new[j] will be undefined for j >= new.length
+  // but this is fine, because our diff can handle diff(node, undefined)!
+  // 3. old.length < new.length
+  // then we can also do diff(old[i], new[i]) for i=0...old.length
+  // which creates patches for each already existing children
+  // we just need create the remaining additional ones: new.slice(old.length)
+  //so ultimate we loop through old regardless and we call diff(old[i], new[i])
+  //then render any addl children and append
+
   return $node => {
     return $node;
   };
