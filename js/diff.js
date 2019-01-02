@@ -1,7 +1,30 @@
 import render from "./render";
 
 const diffAttrs = (oldAttrs, newAttrs) => {
+  const patches = [];
+
+  //setting newAttrs
+  for (const [k, v] of Object.entries(newAttrs)) {
+    patches.push($node => {
+      $node.setAttribute(k, v);
+      return $node;
+    });
+  }
+
+  // removing attrs
+  for (const k in oldAttrs) {
+    if (!(k in newAttrs)) {
+      patches.push($node => {
+        $node.removeAttribute(k);
+        return $node;
+      });
+    }
+  }
+
   return $node => {
+    for (const patch of patches) {
+      patch($node);
+    }
     return $node;
   };
 };
