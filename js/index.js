@@ -1,6 +1,7 @@
 import "../css/index.scss";
 
 import createElement from "./createElement";
+import diff from "./diff";
 import mount from "./mount";
 import render from "./render";
 
@@ -22,11 +23,16 @@ const createVApp = count =>
   });
 
 let count = 0;
-const vApp = createVApp(count);
+let vApp = createVApp(count);
 const $app = render(vApp);
 let $rootEl = mount($app, document.getElementById("app"));
 
 setInterval(() => {
   count++;
-  $rootEl = mount(render(createVApp(count)), $rootEl);
+  const vNewApp = createVApp(count);
+  const patch = diff(vApp, vNewApp);
+
+  $rootEl = patch($rootEl);
+
+  vApp = vNewApp;
 }, 1000);
