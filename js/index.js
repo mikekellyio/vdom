@@ -1,6 +1,7 @@
 import "../css/index.scss";
 
 import createElement from "./createElement";
+import mount from "./mount";
 import render from "./render";
 
 // $ - when referring to real doms, e.g. $div, $el, $app
@@ -18,3 +19,5 @@ const vApp = createElement("div", {
 
 const $app = render(vApp);
 console.log($app);
+
+mount($app, document.getElementById("app"));
