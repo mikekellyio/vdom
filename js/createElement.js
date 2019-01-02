@@ -1,7 +1,7 @@
-export default (tagName, opts) => {
+export default (tagName, { attrs, children }) => {
   return {
     tagName,
-    attrs: opts.attrs,
-    children: opts.children
+    attrs: attrs,
+    children: children
   };
 };
