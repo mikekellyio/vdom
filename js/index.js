@@ -1,6 +1,7 @@
 import "../css/index.scss";
 
 import createElement from "./createElement";
+import render from "./render";
 
 // $ - when referring to real doms, e.g. $div, $el, $app
 // v - when referring to virtual doms, e.g. vDiv, vEl, vApp
@@ -8,10 +9,12 @@ import createElement from "./createElement";
 const vApp = createElement("div", {
   attrs: { id: "app" },
   children: [
+    "That was easy",
     createElement("img", {
       attrs: { src: "https://mkio.link/easy" }
     })
   ]
 });
 
-console.log(vApp);
+const $app = render(vApp);
+console.log($app);
