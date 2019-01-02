@@ -17,6 +17,8 @@ const createVApp = count =>
         attrs: { src: "https://mkio.link/easy" }
       }),
       createElement("br"),
+      createElement("input", { type: "text" }),
+      createElement("br"),
       "The current count is: ",
       String(count)
     ]
